@@ -19,8 +19,9 @@ Install gcloud CLI from https://cloud.google.com/sdk/docs/install.
 Authenticate: `gcloud init` (follow prompts to log in and select/set a project).
 Verify: `gcloud auth list` (shows active account).
 
-<img src="images/ginit.png" alt="Application Screenshot">
-
+![alt text](image-1.png)
+![alt text](image-2.png)
+  
 ## Building and Pushing Docker Images
 Build images from the original repo folders and push to Docker Hub for Kubernetes to pull them.
 
@@ -42,14 +43,13 @@ docker build -t yourusername/yolo-backend:version tag.
 docker push yourusername/yolo-backend:version tag
 ```
 - Replace `yourusername` with your Docker Hub username. Use versioned tags for easy identification and rollback.i.e `yolo-frontend:1.0.`
-<img src="images/docker-client.png" alt="Application Screenshot">
-<img src="images/docker-backend.png" alt="Application Screenshot">
+![alt text](image-3.png)
 
 ## Step-by-Step Deployment
 1. **Create GKE Cluster**:
 
 - Set project: `gcloud config set project your-project-id`. You get project id from google cloud console after you create project
-    <img src="images/google-id.png" alt="Application Screenshot">
+  ![alt text](image-4.png)
 -  Create cluster
 ```bash
     gcloud container clusters create yolo-cluster \
@@ -61,8 +61,7 @@ docker push yourusername/yolo-backend:version tag
     --machine-type e2-small
   ```
 This provisions 3 initial nodes, autoscaling between 2-4 based on load.
-
-<img src="images/clusters.png" alt="Application Screenshot">
+![alt text](image-5.png)
 
 Connect kubectl: `gcloud container clusters get-credentials yolo-cluster --zone us-central1-a`.
 
@@ -72,19 +71,21 @@ Verify nodes:
 ```kubectl get nodes```
 
 Output shows node names, status (Ready), and details.
+![alt text](image-6.png)
 
-<img src="images/get-nodes.png" alt="Application Screenshot">
+Check cloud version
+
+![alt text](image-7.png) 
 
 3. **Apply Manifests**:
 Manifest files in manifests/ are numbered (e.g., 01-mongo-statefulset.yaml) to indicate application order.
 This ensures dependencies (e.g., mongo ready before backend).
 
 ```kubectl apply -f manifests/```
+![alt text](image-9.png)
 
 Monitors pods: `kubectl get pods -w` (wait for Running status).
-
-<img src="images/manifests-new.png" alt="Application Screenshot">
-<img src="images/manifests.png" alt="Application Screenshot">
+ ![alt text](image-10.png)
 
 4. **Get services and External IP**:
 - List services: `kubectl get svc` (shows types, cluster IPs, external IPs).
@@ -101,7 +102,7 @@ Access app: `http://<EXTERNAL-IP>:3000`
 ```
 in browser (replace with actual IP after deployment)..
 
-**Live Link** http://34.132.220.202:3000/
+**Live Link** http://34.118.236.60:3000/
 - Test: View products, add to cart (data persists via MongoDB).
 
 <img src="images/live-landing-page.png" alt="Application Screenshot">
@@ -115,7 +116,7 @@ Kubernetes controllers recreate pods to maintain replicas=2.
 - Delete a pod: `kubectl delete pod <pod-name>` (e.g., frontend-abc-123).
 - Watch: `kubectl get pods -w` (new pod spins up automatically).
 
-<img src="images/pod-self-healing.png" alt="Application Screenshot">
+![alt text](image-12.png)
 
 7. **Cluster Maintenance** (optional, to avoid costs):
 - Set maintenance window: 
@@ -126,9 +127,8 @@ gcloud container clusters update yolo-cluster --zone us-central1-a --maintenance
 - Monitor: Use Google Cloud Console > Kubernetes Engine > yolo-cluster.
 - Cleanup: `gcloud container clusters delete yolo-cluster --zone us-central1-a` (to avoid costs).
 - Added readiness probe to mongo StatefulSet for accurate health checks and PDB compliance.
-
-<img src="images/gcli-cluster.png" alt="Application Screenshot">
-
+ 
+![alt text](image-13.png)
 
 7. **Pod Disruption Budget (PDB) Demonstration**:
 PDB prevents simultaneous disruption of too many pods (`maxUnavailable: 0`for mongo).
@@ -136,16 +136,14 @@ PDB prevents simultaneous disruption of too many pods (`maxUnavailable: 0`for mo
 - Try evicting both mongo pods: `kubectl drain node`.
 
 - Kubernetes evicts only one at a time; the second waits until the first recreates.
-
-<img src="images/pdb.png" alt="Application Screenshot">
+ 
 
 
 ## Troubleshooting
 - Image pull errors: Ensure images are public on Docker Hub.
 - DB connection: Check logs if MONGO_URI fails.
 - Persistence: Delete mongo pod; cart data should remain via PVC and replica set.
-
-<img src="images/persistence1.png" alt="Application Screenshot">
+ 
 <img src="images/persistence2.png" alt="Application Screenshot">
 
 - Pods not ready: `kubectl describe pod <pod-name>`.
