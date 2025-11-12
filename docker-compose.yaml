@@ -10,10 +10,10 @@ services:
 
   #Builds the frontend Docker image and creates the frontend microservice
   nyange-new-yolo-client:
-    image: majangajohn/nyange-yolo-client:v2.1.0
+    image: martinodongo/martin-yolo-client:v2.1.0
     build: 
       context: ./client
-    container_name: nyange-new-yolo-client
+    container_name: martin-new-yolo-client
     stdin_open: true
     tty: true
     ports:
@@ -21,16 +21,16 @@ services:
     environment:
       - NODE_OPTIONS=--openssl-legacy-provider # enables legacy crypto for webpack)
     depends_on: 
-      - nyange-new-yolo-backend
+      - martin-new-yolo-backend
     networks:
       - app-net
 
   #Builds the backend Docker image and creates the backend microservice
-  nyange-new-yolo-backend:
-    image: majangajohn/nyange-yolo-backend:v2.1.0
+  martin-new-yolo-backend:
+    image: martinodongo/martin-yolo-backend:v2.1.0
     build: 
       context: ./backend
-    container_name: nyange-new-yolo-backend
+    container_name: martin-new-yolo-backend
     stdin_open: true
     tty: true
     restart: always

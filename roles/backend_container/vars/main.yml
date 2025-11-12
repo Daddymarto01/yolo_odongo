@@ -1,5 +1,5 @@
 ---
-backend_image: "majangajohn/nyange-yolo-backend:v1.0.0"
+backend_image: "martinodongo/nyange-yolo-backend:v1.0.0"
 backend_port: "5000"
 docker_network: "yolo-net"
 db_name: "yolomy"
