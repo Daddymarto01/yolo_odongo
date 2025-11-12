@@ -1,6 +1,6 @@
 # YOLO E-Commerce App Deployment on GKE
 
-This repo deploys the YOLO app (from https://github.com/daddymarto/yolo_steven.git) on Google Kubernetes Engine using custom Docker images.
+This repo deploys the YOLO app (from https://github.com/daddymarto/yolo_odongo.git) on Google Kubernetes Engine using custom Docker images.
 
 The deployment includes stateless components (frontend and backend) via Deployments and a stateful database (MongoDB) via StatefulSet, with self-healing, resource management, and persistent storage.
 
@@ -10,7 +10,7 @@ The deployment includes stateless components (frontend and backend) via Deployme
 - kubectl installed.
 - Docker installed for building images.
 - Docker Hub account for pushing images.
-- Docker images pushed: ```bash docker.io/martinodongo/nyange-yolo-client:v2.1.0``` and `docker.io/martinodongo/nyange-yolo-backend:v2.1.0`.
+- Docker images pushed: ```bash docker.io/martinodongo/martin-yolo-client:v2.1.0``` and `docker.io/martinodongo/martin-yolo-backend:v2.1.0`.
 - MongoDB image: Uses official `mongo:latest`.
 
 ## Accessing Google Cloud via CLI
@@ -24,7 +24,7 @@ Verify: `gcloud auth list` (shows active account).
 ## Building and Pushing Docker Images
 Build images from the original repo folders and push to Docker Hub for Kubernetes to pull them.
 
-1. **Clone original repo:** git clone `https://github.com/martinodongo/yolo-gke-deployment.git`.
+1. **Clone original repo:** git clone `https://github.com/daddymarto/yolo_odongo.git`.
 2. **Build frontend** (from `client/`folder):
 
 ```bash
