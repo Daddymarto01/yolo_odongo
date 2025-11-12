@@ -1,4 +1,4 @@
-# YOLO E-Commerce App Deployment on GKE
+# YOLO E-Commerce Deployment on GKE
 
 This repo deploys the YOLO app (from https://github.com/daddymarto/yolo_odongo.git) on Google Kubernetes Engine using custom Docker images.
 

@@ -77,7 +77,7 @@ Vagrant.configure("2") do |config|
 
    # VirtualBox provider settings
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "yolo-app-vm"
+    vb.name = "yolo-cloud-vm"
     vb.memory = 4096
     vb.cpus = 8
 
