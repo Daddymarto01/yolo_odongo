@@ -92,9 +92,7 @@ Monitors pods: `kubectl get pods -w` (wait for Running status).
 - Wait for frontend external IP: `kubectl get svc frontend -w` (EXTERNAL-IP changes from <pending> to an IP like 34.123.45.67).
 
 Access app: `http://<EXTERNAL-IP>:3000`
-
-<img src="images/external-ip.png" alt="Application Screenshot">
-
+ 
 5. **Accessing Live Link and Testing**:
 - Open 
 ```bash
